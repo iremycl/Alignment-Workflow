@@ -1,4 +1,4 @@
-# Gene Set Enrichment Analysis Workflow Using Snakemake
+# RNA Seq Preprocessing Using Snakemake
  
 
 # Table of contents
@@ -12,40 +12,36 @@
 6. [References](#references)
 
 
-## This is the introduction <a name="introduction"></a>
--Explain GSEA
-
-Tools to use:
-[GSEA](https://www.gsea-msigdb.org/gsea/index.jsp)
-
-
-
+## RNA Sequencing <a name="introduction"></a>
+RNA Sequencing quantifies the amount of RNA in a biological sample at a given moment. Thus, between 2 conditions (eg. before/after treatment or healthy/disease case) RNA sequencing gives information about the transcriptome of the samples. Comparing the RNA levels in these 2 conditions, it is possible to make interpretation about the differentially expressed genes. However, before diving into DGE analysis, it is important to do the preprocessing. Here, I have a simple RNA Seq preprocessing workflow to do quality check and perform alignment. The output of the RNA Sequencing is the fastq files, containing the read sequences and some information about the read, such as the sequencing run, cluster and the quality score of the bases. This information can be used to clean the low quality reads from the fastq files. For this
 
 
 
 ## Data <a name="data"></a>
-Data
+The *E. Coli* data is from [this paper](https://www.nature.com/articles/s41598-019-51046-7#Sec10)
+The reference *E. Coli* genome
 
 ## Pipeline <a name="pipeline"></a>
-Data
 
--QC Check using FASTqc
--Adaptor Trimming Trimmomatic
--Alignment to reference genome using STAR Aligner
-
+1. QC Check : `FastQC`
+2. Adaptor Trimming: `Trimmomatic`
+3. Alignment to reference genome:  `STAR` 
+4. Alignment Quality Check: `samtools`
 
 
 ## Usage <a name="usage"></a>
 Usage
 
 ### Input <a name="input"></a>
-Input
+fastq
+reference
 
 ### Output <a name="output"></a>
 Output
 
 ## Results <a name="results"></a>
-Results
+fastqc
 
 ## References <a name="references"></a>
-Refs
+1. Said-Salman, I.H., Jebaii, F.A., Yusef, H.H. et al. Global gene expression analysis of Escherichia coli K-12 DH5α after exposure to 2.4 GHz wireless fidelity radiation. Sci Rep 9, 14425 (2019). https://doi.org/10.1038/s41598-019-51046-7
+2. 
