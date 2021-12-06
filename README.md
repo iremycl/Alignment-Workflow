@@ -12,9 +12,11 @@
 6. [References](#references)
 
 
-## RNA Sequencing <a name="introduction"></a>
-RNA Sequencing quantifies the amount of RNA in a biological sample at a given moment. Thus, between 2 conditions (eg. before/after treatment or healthy/disease case) RNA sequencing gives information about the transcriptome of the samples. Comparing the RNA levels in these 2 conditions, it is possible to make interpretation about the differentially expressed genes. However, before diving into DGE analysis, it is important to do the preprocessing. Here, I have a simple RNA Seq preprocessing workflow to do quality check and perform alignment. The output of the RNA Sequencing is the fastq files, containing the read sequences and some information about the read, such as the sequencing run, cluster and the quality score of the bases. This information can be used to clean the low quality reads from the fastq files. For this
+## RNA Sequencing Preprocessing <a name="introduction"></a>
 
+RNA Sequencing quantifies the amount of RNA in a biological sample at a given moment. Thus, between 2 conditions (eg. before/after treatment or healthy/disease case) RNA sequencing gives information about the transcriptome of the samples quantitatively. Comparing the RNA levels in these 2 conditions, it is possible to make interpretation about the differentially expressed genes. However, before diving into DGE analysis, it is important to do the preprocessing. Here, I have a simple RNA Seq preprocessing workflow to do quality check and perform alignment. 
+
+The output of the RNA Sequencing is the fastq files, containing the read sequences and some information about the read, such as the sequencing run, cluster and the quality score of the bases. This information can be used to clean the low quality reads from the fastq files. For this first I will assess the read quality using [Fastqc](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/). During the alignment, if a read has high number of mismatches it will not be aligned. So in order to reduce the number of mismatches between the query sequence and reference data, [Trimmomatic](http://www.usadellab.org/cms/?page=trimmomatic) will be used to trim the adaptor sequencing, remove the low quality bases and get rid of any contamination. However, this step is optinal as many modern alignmnet tools can account for this. 
 
 
 ## Data <a name="data"></a>
