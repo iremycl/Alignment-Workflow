@@ -21,10 +21,11 @@ The output of the RNA Sequencing is the fastq files, containing the read sequenc
 
 ## Data <a name="data"></a>
 
-- The *E. Coli* data [this paper](https://www.nature.com/articles/s41598-019-51046-7#Sec10)
+The study aims to find the effects of Wi-Fi radiofrequency radiation of 2.4 GHz on global gene expression. For this the data is an RNA seq from control and radio frequency exposed bacteria. I just perform the preprocessing on the raw sequence data. There are RNA Seq data from 3 controls and 3 exposed *E. Coli*, but I will only use 1 of the control samples for my workflow. 
+
+- The *E. Coli* data from [this paper](https://www.nature.com/articles/s41598-019-51046-7#Sec10)
 - The reference [*E. Coli* genome](https://www.ncbi.nlm.nih.gov/assembly/GCF_002848225.1/)
 
-The study aims to find the effects of Wi-Fi radiofrequency radiation of 2.4 GHz on global gene expression. For this the data is an RNA seq from control and radio frequency exposed bacteria. I just perform the preprocessing on the raw sequence data.
 
 ## Pipeline <a name="pipeline"></a>
 
