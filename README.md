@@ -49,9 +49,10 @@ In the workflow the versions are:
   - 
 ## Usage <a name="usage"></a>
 
-To use in OSx:
+In OSx:
 
 To use the same workflow, just clone the repository:
+
 ```
 git clone https://github.com/iremycl/AlignmentWorkflow_Snakemake.git
 cd AlignmentWorkflow_Snakemake
@@ -59,7 +60,7 @@ cd AlignmentWorkflow_Snakemake
 and create the conda environment using the environment.yaml :
 
 ```
-conda env create --file environment.yml
+conda env create --file environment.yaml
 
 ```
 Then the pipeline can be run in the same directory with the Snakemake file:
