@@ -1,0 +1,16 @@
+in total (QC-passed reads + QC-failed reads)
+primary
+secondary
+supplementary
+duplicates
+primary duplicates
+mapped (N/A : N/A)
+primary mapped (N/A : N/A)
+paired in sequencing
+read1
+read2
+properly paired (N/A : N/A)
+with itself and mate mapped
+singletons (N/A : N/A)
+with mate mapped to a different chr
+with mate mapped to a different chr (mapQ>=5)
