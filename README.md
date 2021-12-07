@@ -48,7 +48,27 @@ In the workflow the versions are:
   - samtools=1.14
   - 
 ## Usage <a name="usage"></a>
-Usage
+
+To use in OSx:
+
+To use the same workflow, just clone the repository:
+```
+git clone https://github.com/iremycl/AlignmentWorkflow_Snakemake.git
+cd AlignmentWorkflow_Snakemake
+```
+and create the conda environment using the environment.yaml :
+
+```
+conda env create --file environment.yml
+
+```
+Then the pipeline can be run in the same directory with the Snakemake file:
+
+```
+snakemake --cores 2
+
+```
+
 
 ### Input <a name="input"></a>
 
