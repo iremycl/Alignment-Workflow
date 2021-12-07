@@ -49,7 +49,7 @@ In the workflow the versions are:
   - 
 ## Usage <a name="usage"></a>
 
-In OSx:
+In OSx with conda installed:
 
 To use the same workflow, just clone the repository:
 
@@ -86,7 +86,9 @@ The input data consists of:
 
 ### Output <a name="output"></a>
 
-The output data of the first run is the html files showing the base qualities for the reads in the input Fastq files. Then the trimming part removes the reads with high mismatches, such as adaptors and contaminants Then the trimmed reads are used along with the indexed reference genome for the alignment. The final output is from samtools, reporting the alignment statistics.
+The output data of the first run is the html files showing the base qualities for the reads in the input Fastq files. Then the trimming part removes the reads with high mismatches, such as adaptors and contaminants Then the trimmed reads are used along with the indexed reference genome for the alignment. The final output is from samtools, reporting the alignment statistics. An example file with extension sortedByCoord.out.bam.flagstat_output is in the repository showing the statistics returned with the last step. Another example file showing the snapshot of the fastQC output html file is also provided.
+
+
 
 ## References <a name="references"></a>
 1. Said-Salman, I.H., Jebaii, F.A., Yusef, H.H. et al. Global gene expression analysis of Escherichia coli K-12 DH5α after exposure to 2.4 GHz wireless fidelity radiation. Sci Rep 9, 14425 (2019). https://doi.org/10.1038/s41598-019-51046-7
