@@ -1,15 +1,15 @@
-configfile: "config.yaml"
+# configfile: "environment.yaml"
 
 SAMPLE = ["SRR8580014"]
 
 rule all:
     input:
-        "SRR8580014_fastqc.html",
-        "SRR8580014_fastqc.zip",
-        "data/samples/trimmed/SRR8580014_1P.fastq.gz",
-        "data/samples/trimmed/SRR8580014_2P.fastq.gz",
-        "data/samples/trimmed/SRR8580014_1U.fastq.gz",
-        "data/samples/trimmed/SRR8580014_2U.fastq.gz",
+        "data/samples/raw/SRR8580014_fastqc.html",
+        "data/samples/raw/SRR8580014_fastqc.zip",
+        # "data/samples/trimmed/SRR8580014_1P.fastq.gz",
+        # "data/samples/trimmed/SRR8580014_2P.fastq.gz",
+        # "data/samples/trimmed/SRR8580014_1U.fastq.gz",
+        # "data/samples/trimmed/SRR8580014_2U.fastq.gz",
         "data/reference/index",
         "data/samples/mapped/SRR8580014_Aligned.sortedByCoord.out.bam",
         "results/SRR8580014_Aligned.sortedByCoord.out.bam.flagstat"
@@ -20,22 +20,22 @@ rule fastqc:
         "data/samples/raw/SRR8580014_1.fastq.gz",
         "data/samples/raw/SRR8580014_2.fastq.gz"
     output:
-        "SRR8580014_fastqc.html",
-        "SRR8580014_fastqc.zip"
+        "data/samples/raw/SRR8580014_fastqc.html",
+        "data/samples/raw/SRR8580014_fastqc.zip"
     shell:
-        "fastqc {input} -o data/samples/raw/"
+        "fastqc {input} -o {output}"
 
-rule trimming:
-    input:
-        s1r1="data/samples/raw/SRR8580014_1.fastq.gz",
-        s1r2="data/samples/raw/SRR8580014_2.fastq.gz"
-    output:
-        s1r1_paired="data/samples/trimmed/SRR8580014_1P.fastq.gz",
-        s1r2_paired="data/samples/trimmed/SRR8580014_2P.fastq.gz",
-        s1r1_unpaired="data/samples/trimmed/SRR8580014_1U.fastq.gz",
-        s1r2_unpaired="data/samples/trimmed/SRR8580014_2U.fastq.gz"
-    shell:
-        "trimmomatic PE -threads 4 {input.s1r1} {input.s1r2} {output.s1r1_paired} {output.s1r1_unpaired} {output.s1r2_paired} {output.s1r2_unpaired} ILLUMINACLIP:TruSeq3-PE.fa:2:30:10 SLIDINGWINDOW:4:15"
+# rule trimming:
+#     input:
+#         s1r1="data/samples/raw/SRR8580014_1.fastq.gz",
+#         s1r2="data/samples/raw/SRR8580014_2.fastq.gz"
+#     output:
+#         s1r1_paired="data/samples/trimmed/SRR8580014_1P.fastq.gz",
+#         s1r2_paired="data/samples/trimmed/SRR8580014_2P.fastq.gz",
+#         s1r1_unpaired="data/samples/trimmed/SRR8580014_1U.fastq.gz",
+#         s1r2_unpaired="data/samples/trimmed/SRR8580014_2U.fastq.gz"
+#     shell:
+#         "trimmomatic PE -threads 4 {input.s1r1} {input.s1r2} {output.s1r1_paired} {output.s1r1_unpaired} {output.s1r2_paired} {output.s1r2_unpaired} ILLUMINACLIP:TruSeq3-PE.fa:2:30:10 SLIDINGWINDOW:4:15"
 
 
 
@@ -69,6 +69,23 @@ rule generate_genome_index:
         "--sjdbOverhang 100 "
         "--genomeSAindexNbases 10 "
 
+rule unzip_1:
+    input:
+        s1r1="data/samples/raw/SRR8580014_1.fastq.gz"
+    output:
+        s1r1="data/samples/raw/SRR8580014_1.fastq"
+    shell:
+        "gzip -dc {input} > {output}"
+
+
+rule unzip_2:
+    input:
+        s1r2="data/samples/raw/SRR8580014_2.fastq.gz"
+    output:
+        s1r2="data/samples/raw/SRR8580014_2.fastq"
+    shell:
+        "gzip -dc {input} > {output}"
+
 rule star_map:
     input:
         "data/reference/index/chrLength.txt",
@@ -87,14 +104,13 @@ rule star_map:
         "data/reference/index/sjdbList.fromGTF.out.tab",
         "data/reference/index/sjdbList.out.tab",
         "data/reference/index/transcriptInfo.tab",
-        s1r1="data/samples/raw/SRR8580014_1.fastq.gz",
-        s1r2="data/samples/raw/SRR8580014_2.fastq.gz"
+        s1r1="data/samples/raw/SRR8580014_1.fastq",
+        s1r2="data/samples/raw/SRR8580014_2.fastq"
     output:
-        "data/samples/mapped/SRR8580014_Aligned.sortedByCoord.out.bam",
+        "data/samples/mapped/SRR8580014_Aligned.sortedByCoord.out.bam"
     shell:
         "STAR --runThreadN {threads} "
         " --readFilesIn {input.s1r1} {input.s1r2} "
-        " --readFilesCommand zcat "
         " --genomeDir data/reference/index "
         " --outFileNamePrefix data/samples/mapped/{SAMPLE}_ "
         " --outSAMtype BAM SortedByCoordinate "
@@ -104,8 +120,8 @@ rule star_map:
 
 rule samtools_alignment_qc:
     input:
-        "data/samples/mapped/SRR8580014_Aligned.sortedByCoord.out.bam",
+        "data/samples/mapped/SRR8580014_Aligned.sortedByCoord.out.bam"
     output:
-        "results/SRR8580014_Aligned.sortedByCoord.out.bam.flagstat",
+        "results/SRR8580014_Aligned.sortedByCoord.out.bam.flagstat"
     shell:
         "samtools flagstat {input} > {output}"
